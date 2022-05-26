@@ -100,8 +100,3 @@ celerybeat.pid
 
 # SageMath parsed files
 *.sage.py
-
-
-
-
-properties.sqlite3
