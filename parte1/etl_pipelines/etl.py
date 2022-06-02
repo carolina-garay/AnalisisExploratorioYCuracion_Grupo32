@@ -23,25 +23,7 @@ class Pipeline():
         
         self.db_name = db_name
         
-        print("La etapa de extraccion tardo: --- %s segundos ---" % (time.time() - start_time))
-        
-    
-    def remove_outliers(self, df, column_name):
-    
-        ''' Outliers are removed '''
-    
-        df = df.copy()
-    
-        q1 = df[column_name].quantile(0.25)
-        q3 = df[column_name].quantile(0.75)
-        iqr = q3 - q1 #Interquartile range
-        fence_low  = q1 - 1.5 * iqr
-        fence_high = q3 + 1.5 * iqr
-        df = df.loc[(df[column_name] > fence_low) & (df[column_name] < fence_high)]
-    
-        df = df.reset_index(drop=True)
-
-        return df        
+        print("La etapa de extraccion tardo: --- %s segundos ---" % (time.time() - start_time)) 
         
     def merge_df(self):
     
@@ -50,8 +32,8 @@ class Pipeline():
         start_time = time.time()
     
         kaggle_new_df = self.kaggle_df
-
-        kaggle_new_df_outlier = self.remove_outliers(kaggle_new_df, "Price")
+        
+        kaggle_new_df_outlier = kaggle_new_df[(kaggle_new_df["Price"] > 200000) & (kaggle_new_df["Price"] < 3000000)]
         
         kaggle_new_df_outlier = kaggle_new_df_outlier[kaggle_new_df_outlier['Car'] < 7]
         
@@ -62,7 +44,9 @@ class Pipeline():
         outliers= high_extreme_values + low_extreme_values
         
         kaggle_new_df_outlier = kaggle_new_df_outlier[~kaggle_new_df_outlier["BuildingArea"].isin(outliers)] # El símbolo ~ me brinda la selección opuesta al isin
-    
+        
+        self.airbnb_df["zipcode"] = pd.to_numeric(self.airbnb_df.zipcode, errors="coerce")
+        
         airbnb_df_agg = self.airbnb_df.groupby("zipcode").agg(airbnb_record_count=("price", "count"),
             airbnb_daily_price_mean=("price", "mean"),
             airbnb_weekly_price_mean=("weekly_price", "mean"),
@@ -74,8 +58,6 @@ class Pipeline():
         
         
         airbnb_df_agg = airbnb_df_agg[airbnb_df_agg["airbnb_record_count"] > 2]
-        
-        airbnb_df_agg["zipcode"] = airbnb_df_agg["zipcode"].astype(float, errors = "raise")
         
         merge_df = kaggle_new_df_outlier.merge(airbnb_df_agg, how="left", left_on="Postcode", right_on="zipcode")
         
