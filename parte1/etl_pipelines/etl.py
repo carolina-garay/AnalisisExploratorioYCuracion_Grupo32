@@ -10,6 +10,8 @@ from sqlalchemy import create_engine, text
 class Pipeline():
 
     def __init__(self, kaggle_path, airbnb_path, kaggle_features, interesting_features, db_engine, db_name):
+        
+        ''' Class constructor is declared '''
     
         start_time = time.time()
     
@@ -26,6 +28,8 @@ class Pipeline():
     
     def remove_outliers(self, df, column_name):
     
+        ''' Outliers are removed '''
+    
         df = df.copy()
     
         q1 = df[column_name].quantile(0.25)
@@ -40,6 +44,8 @@ class Pipeline():
         return df        
         
     def merge_df(self):
+    
+        ''' The datasets are combined '''
         
         start_time = time.time()
     
@@ -73,6 +79,8 @@ class Pipeline():
     
     
     def create_database(self):
+    
+        ''' The dataset is loaded into the database '''
     
         start_time = time.time()
     
