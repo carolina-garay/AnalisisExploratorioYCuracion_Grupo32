@@ -54,6 +54,14 @@ class Pipeline():
         kaggle_new_df_outlier = self.remove_outliers(kaggle_new_df, "Price")
         
         kaggle_new_df_outlier = kaggle_new_df_outlier[kaggle_new_df_outlier['Car'] < 7]
+        
+        kaggle_new_df_outlier =  kaggle_new_df_outlier[kaggle_new_df_outlier['YearBuilt'] != 1196]
+        
+        high_extreme_values = [44515, 6791, 3558, 3112, 1561, 1143, 1041, 1022, 934, 808, 792]
+        low_extreme_values = [i for i in range(10)]
+        outliers= high_extreme_values + low_extreme_values
+        
+        kaggle_new_df_outlier = kaggle_new_df_outlier[~kaggle_new_df_outlier["BuildingArea"].isin(outliers)] # El símbolo ~ me brinda la selección opuesta al isin
     
         airbnb_df_agg = self.airbnb_df.groupby("zipcode").agg(airbnb_record_count=("price", "count"),
             airbnb_daily_price_mean=("price", "mean"),
