@@ -1,1 +1,1 @@
-# AnálisisYCuración_Grupo32
+# AnálisisExploratorioYCuración_Grupo32
