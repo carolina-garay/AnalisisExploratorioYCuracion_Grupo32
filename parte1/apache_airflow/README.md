@@ -1,16 +1,65 @@
-# Entregable 2 - Materia: Análisis Exploratorio y Curación de Datos
+# Entregable 2 - Materia: Análisis Exploratorio y Curación de Datos. Simple ETL Using Airflow.
 
-Debe instalar Python Versión 3.6 o Superior.
+Este es un ETL simple usando Airflow. Primero, obtenemos datos de las URLs provistas por la Diplo como dataframes filtrados por columnas importantes. Luego combinamos los dos dataframes utilizando "left join" y lo convertimos a CSV(transformamos). Finalmente, cargamos los datos transformados a la base de datos (load).
 
-Para reproducir los experimentos, deberá instalar el entorno de Anaconda.
+#Prerequisitos
 
-## Variables de Entorno
+### Create a VirtualEnv (for local run) in Airflow Folder
 
-Para trabajar con SQLite, se trabajo con la librería de SQLAlchemy y python-decouple:
+``` bash
+python -m venv venv
+```
 
-  1. Se crea un archivo .env, en el mismo directorio que el script "main.py" donde se almacena las características de la base de datos donde vamos a trabajar.
-  2. Las variables son leídas en el script main.py, a través de la importación del método config de la librería decouple.
+### Activate the VirtualEnv (for local run)
 
-## Ejecutar Pipeline
+``` bash
+source venv/bin/activate
+```
 
-Para ejecutar el pipeline debe acceder a una consola y dirigirse al directorio donde se encuentra el script main.py; una vez dentro del directorio, ejecutar "python main.py"
+### Install the requirements
+
+``` bash
+pip install -r requirements.txt
+```
+
+### Install the requirements
+
+``` bash
+pip install -r requirements.txt
+```
+
+### Set Airflow Home Directory (for local run)
+
+``` bash
+export AIRFLOW_HOME=~/PATH/TO/FOLDER/airflow
+```
+
+### Initializing the Airflow DB
+
+``` bash
+airflow db init
+```
+
+### Setup Admin User
+
+``` bash
+airflow users create \
+    --username username \
+    --firstname firstname \
+    --lastname lastnamee \
+    --role Admin \
+    --email email@domain.com
+```
+
+### Start Webserver
+
+``` bash
+airflow webserver --port 8080 -D
+```
+
+
+
+
+
+
+
