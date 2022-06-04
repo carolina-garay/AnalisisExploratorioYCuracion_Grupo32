@@ -2,7 +2,7 @@
 
 Este es un ETL simple usando Airflow. Primero, obtenemos datos de las URLs provistas por la Diplo como dataframes filtrados por columnas importantes. Luego combinamos los dos dataframes utilizando "left join" y lo convertimos a CSV(transformamos). Finalmente, cargamos los datos transformados a la base de datos (load).
 
-##Prerequisitos
+## Prerequisitos
 
 ### Create a VirtualEnv (for local run) in Airflow Folder
 
