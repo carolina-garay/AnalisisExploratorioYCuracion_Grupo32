@@ -2,6 +2,12 @@
 
 Repository for the resolution of the deliverables of the course "Exploratory Analysis and Data Curation". Diploma in Data Science, Machine Learning and its Applications. 2022. FAMAF, UNC, Argentina.
 
+# Integrantes
+
+- Garay, Carolina
+- Ormaechea, Sebastián
+- Ramos, Pablo Nicolás
+
 ## Entorno para reproducir los scripts de la parte1
 
 Debe instalar Python Versión 3.6 o Superior.
